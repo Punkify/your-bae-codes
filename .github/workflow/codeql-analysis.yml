@@ -1,0 +1,25 @@
+#
+//  codeql-analysis.yml
+//  Track21
+//
+//  Created by J31065 on 7/11/2024.
+//
+
+on:
+  push:
+    branches: [master, trunk]
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: [macos-latest]
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['swift']
+

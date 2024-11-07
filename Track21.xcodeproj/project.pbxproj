@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E20F1B72CDC991D00410BA7 /* codeql-analysis.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "codeql-analysis.yml"; sourceTree = "<group>"; };
 		4EBA161C2CD89A9200D102C4 /* Track21.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Track21.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EBA16302CD89A9300D102C4 /* Track21Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Track21Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EBA163A2CD89A9300D102C4 /* Track21UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Track21UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,9 +86,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E20F1B52CDC990A00410BA7 /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				4E20F1B62CDC991500410BA7 /* workflow */,
+			);
+			path = .github;
+			sourceTree = "<group>";
+		};
+		4E20F1B62CDC991500410BA7 /* workflow */ = {
+			isa = PBXGroup;
+			children = (
+				4E20F1B72CDC991D00410BA7 /* codeql-analysis.yml */,
+			);
+			path = workflow;
+			sourceTree = "<group>";
+		};
 		4EBA16132CD89A9200D102C4 = {
 			isa = PBXGroup;
 			children = (
+				4E20F1B52CDC990A00410BA7 /* .github */,
 				4EBA161E2CD89A9200D102C4 /* Track21 */,
 				4EBA16332CD89A9300D102C4 /* Track21Tests */,
 				4EBA163D2CD89A9300D102C4 /* Track21UITests */,
