@@ -16,7 +16,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: macos-latest
+    runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
@@ -25,19 +25,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install CocoaPods dependencies
-        run: |
-          gem install cocoapods
-          pod install
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-
+          
+      - name: List available simulators
+        run: xcrun simctl list devices
+          
       - name: Build code
-        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build
+        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0' build
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
-
