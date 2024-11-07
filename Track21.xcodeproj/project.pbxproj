@@ -89,17 +89,17 @@
 		4E20F1B52CDC990A00410BA7 /* .github */ = {
 			isa = PBXGroup;
 			children = (
-				4E20F1B62CDC991500410BA7 /* workflow */,
+				4E20F1B62CDC991500410BA7 /* workflows */,
 			);
 			path = .github;
 			sourceTree = "<group>";
 		};
-		4E20F1B62CDC991500410BA7 /* workflow */ = {
+		4E20F1B62CDC991500410BA7 /* workflows */ = {
 			isa = PBXGroup;
 			children = (
 				4E20F1B72CDC991D00410BA7 /* codeql-analysis.yml */,
 			);
-			path = workflow;
+			path = workflows;
 			sourceTree = "<group>";
 		};
 		4EBA16132CD89A9200D102C4 = {
