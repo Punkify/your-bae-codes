@@ -5,6 +5,9 @@
 //  Created by J31065 on 7/11/2024.
 //
 
+name: Code QL Build
+run-name: ${{ github.actor }} push
+
 on:
   push:
     branches: [master, trunk]
