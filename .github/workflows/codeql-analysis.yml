@@ -16,7 +16,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: macos-15
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
@@ -25,22 +25,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Resolve Swift Package Dependencies
+        run: swift package resolve
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          
-      - name: Set Xcode Version
-        run: sudo xcode-select -s /Applications/Xcode_15.0.app
-        
-      - name: List available simulators
-        run: xcrun simctl list devices
-          
+
       - name: Build code
-        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0' build -verbose
-        
-      - name: Clear Xcode build cache
-        run: rm -rf ~/Library/Developer/Xcode/DerivedData
+        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build -verbose
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
