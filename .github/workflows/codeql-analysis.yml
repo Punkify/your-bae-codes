@@ -4,15 +4,6 @@
 
 #  Created by Hrishav Sunar on 7/11/2024.
 
-on:
-  push:
-    branches: [master, trunk]
-  pull_request:
-    branches: [master]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.txt'
-      
 jobs:
   analyze:
     name: Analyze
@@ -25,8 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Resolve Swift Package Dependencies
-        run: swift package resolve
+      - name: Install CocoaPods dependencies
+        run: |
+          gem install cocoapods
+          pod install
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
@@ -34,7 +27,7 @@ jobs:
           languages: ${{ matrix.language }}
 
       - name: Build code
-        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build -verbose
+        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' build
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
