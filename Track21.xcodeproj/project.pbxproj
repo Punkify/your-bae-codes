@@ -14,20 +14,12 @@
 			remoteGlobalIDString = 4EBA161B2CD89A9200D102C4;
 			remoteInfo = Track21;
 		};
-		4EBA163B2CD89A9300D102C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EBA16142CD89A9200D102C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EBA161B2CD89A9200D102C4;
-			remoteInfo = Track21;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4E20F1B72CDC991D00410BA7 /* actions.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = actions.yml; sourceTree = "<group>"; };
 		4EBA161C2CD89A9200D102C4 /* Track21.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Track21.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EBA16302CD89A9300D102C4 /* Track21Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Track21Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EBA163A2CD89A9300D102C4 /* Track21UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Track21UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -71,13 +63,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EBA16372CD89A9300D102C4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -112,7 +97,6 @@
 			children = (
 				4EBA161C2CD89A9200D102C4 /* Track21.app */,
 				4EBA16302CD89A9300D102C4 /* Track21Tests.xctest */,
-				4EBA163A2CD89A9300D102C4 /* Track21UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,26 +149,6 @@
 			productReference = 4EBA16302CD89A9300D102C4 /* Track21Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4EBA16392CD89A9300D102C4 /* Track21UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EBA164B2CD89A9300D102C4 /* Build configuration list for PBXNativeTarget "Track21UITests" */;
-			buildPhases = (
-				4EBA16362CD89A9300D102C4 /* Sources */,
-				4EBA16372CD89A9300D102C4 /* Frameworks */,
-				4EBA16382CD89A9300D102C4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4EBA163C2CD89A9300D102C4 /* PBXTargetDependency */,
-			);
-			name = Track21UITests;
-			packageProductDependencies = (
-			);
-			productName = Track21UITests;
-			productReference = 4EBA163A2CD89A9300D102C4 /* Track21UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -199,10 +163,6 @@
 						CreatedOnToolsVersion = 16.0;
 					};
 					4EBA162F2CD89A9300D102C4 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 4EBA161B2CD89A9200D102C4;
-					};
-					4EBA16392CD89A9300D102C4 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 4EBA161B2CD89A9200D102C4;
 					};
@@ -224,7 +184,6 @@
 			targets = (
 				4EBA161B2CD89A9200D102C4 /* Track21 */,
 				4EBA162F2CD89A9300D102C4 /* Track21Tests */,
-				4EBA16392CD89A9300D102C4 /* Track21UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -238,13 +197,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4EBA162E2CD89A9300D102C4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EBA16382CD89A9300D102C4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,13 +220,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EBA16362CD89A9300D102C4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -282,11 +227,6 @@
 			isa = PBXTargetDependency;
 			target = 4EBA161B2CD89A9200D102C4 /* Track21 */;
 			targetProxy = 4EBA16312CD89A9300D102C4 /* PBXContainerItemProxy */;
-		};
-		4EBA163C2CD89A9300D102C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4EBA161B2CD89A9200D102C4 /* Track21 */;
-			targetProxy = 4EBA163B2CD89A9300D102C4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -512,38 +452,6 @@
 			};
 			name = Release;
 		};
-		4EBA164C2CD89A9300D102C4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourbaecodes.track21UItests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Track21;
-			};
-			name = Debug;
-		};
-		4EBA164D2CD89A9300D102C4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourbaecodes.track21UItests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Track21;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -570,15 +478,6 @@
 			buildConfigurations = (
 				4EBA16492CD89A9300D102C4 /* Debug */,
 				4EBA164A2CD89A9300D102C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4EBA164B2CD89A9300D102C4 /* Build configuration list for PBXNativeTarget "Track21UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EBA164C2CD89A9300D102C4 /* Debug */,
-				4EBA164D2CD89A9300D102C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
