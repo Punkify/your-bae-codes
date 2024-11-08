@@ -1,0 +1,30 @@
+#
+#  codeql-analysis.yml
+#  Track21
+
+#  Created by Hrishav Sunar on 7/11/2024.
+
+on:
+  push:
+    branches: [master, trunk]
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    - name: Set up Swift
+      uses: fwal/setup-swift@v1
+      with:
+        swift-version: '6.0' 
+
+    - name: Build and Test
+      run: swift test
