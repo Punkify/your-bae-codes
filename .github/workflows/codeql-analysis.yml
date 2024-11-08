@@ -16,7 +16,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: macos-latest
+    runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
@@ -34,7 +34,7 @@ jobs:
         run: xcrun simctl list devices
           
       - name: Build code
-        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0.1' build
+        run: xcodebuild -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0' build -verbose
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
