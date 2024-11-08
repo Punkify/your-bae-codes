@@ -11,7 +11,7 @@ import Testing
 struct Track21Tests {
 
     @Test func example() async throws {
-        #expect(4 == 2*1)
+        #expect(4 == 2*2)
     }
 
 }
