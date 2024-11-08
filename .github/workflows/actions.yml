@@ -28,6 +28,9 @@ jobs:
         key: ${{ runner.os }}-xcode-${{ hashFiles('**/*.xcodeproj/**', '**/*.xcworkspace/**', '**/Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-xcode-
+          
+    - name: Install xcpretty
+      run: sudo gem install xcpretty
 
     - name: Run Test
-      run: xcodebuild test -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0'
+      run: xcodebuild test -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0' | xcpretty
