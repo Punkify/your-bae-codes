@@ -17,5 +17,9 @@ struct Track21Tests {
     @Test func example_test() async throws {
         #expect(1 == 2/2)
     }
+    
+    @Test func second_example_test() async throws {
+        #expect(0 == 2-2)
+    }
 
 }
