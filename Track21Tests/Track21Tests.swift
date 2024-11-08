@@ -10,20 +10,20 @@ import Testing
 
 struct Track21Tests {
 
-    @Test func example() async throws {
+    @Test("Checks for multiplication") func example() async throws {
         #expect(4 == 2*2)
     }
     
-    @Test func example_test() async throws {
+    @Test("Checks for division") func example_test() async throws {
         #expect(1 == 2/2)
     }
     
-    @Test func second_example_test() async throws {
+    @Test("Checks for subtraction") func second_example_test() async throws {
         #expect(0 == 2-2)
     }
     
-    @Test func third_example_test() async throws {
-        #expect(1 == 2-2)
+    @Test("Checks for addition") func third_example_test() async throws {
+        #expect(4 == 2+2)
     }
 
 }
