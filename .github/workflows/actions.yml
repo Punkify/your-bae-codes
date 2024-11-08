@@ -26,5 +26,5 @@ jobs:
       with:
         swift-version: '5.9' 
 
-    - name: Build and Test
-      run: swift test
+    - name: Run Test
+      run: xcodebuild test -scheme Track21 -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0'
