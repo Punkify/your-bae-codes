@@ -54,11 +54,6 @@
 			path = Track21Tests;
 			sourceTree = "<group>";
 		};
-		4EBA163D2CD89A9300D102C4 /* Track21UITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Track21UITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +103,6 @@
 				4E20F1B52CDC990A00410BA7 /* .github */,
 				4EBA161E2CD89A9200D102C4 /* Track21 */,
 				4EBA16332CD89A9300D102C4 /* Track21Tests */,
-				4EBA163D2CD89A9300D102C4 /* Track21UITests */,
 				4EBA161D2CD89A9200D102C4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -183,9 +177,6 @@
 			);
 			dependencies = (
 				4EBA163C2CD89A9300D102C4 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				4EBA163D2CD89A9300D102C4 /* Track21UITests */,
 			);
 			name = Track21UITests;
 			packageProductDependencies = (
