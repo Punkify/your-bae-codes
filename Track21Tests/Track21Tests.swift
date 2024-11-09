@@ -25,7 +25,7 @@ struct Track21Tests {
     }
     
     
-    @Test("should insert into Habit Mode when insert context is called.") func testHabitInsertion() async throws {
+    @Test("should insert into Habit Model when insert context is called.") func testHabitInsertion() async throws {
         let createdDate = Date()
         let habit = Habit(name: "TestName", createdAt: createdDate)
         context.insert(habit)
@@ -40,6 +40,17 @@ struct Track21Tests {
         let habits = [habit, secondHabit]
         context.insert(habit)
         context.insert(secondHabit)
+        #expect(Habit().getValue(forKey: "name") == 2)
+
+    }
+    
+    @Test("should delete Habits") func testHabitDeletion() async throws {
+        let createdDate = Date()
+        let habit = Habit(name: "TestName", createdAt: createdDate)
+        let secondHabit = Habit(name: "TestName", createdAt: createdDate)
+        let habits = [habit, secondHabit]
+        context.insert(habit)
+        context.delete(secondHabit)
         #expect(habits.count == 2)
 
     }
