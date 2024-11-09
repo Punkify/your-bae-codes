@@ -23,7 +23,7 @@ struct Track21Tests {
     }
     
     @Test("Checks for addition") func third_example_test() async throws {
-        #expect(4 == 2+3)
+        #expect(4 == 2+2)
     }
 
 }
