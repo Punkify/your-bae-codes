@@ -39,6 +39,8 @@ struct ContentView: View {
                                     .foregroundColor(.blue) .padding(5)
                                 Text("Day \(habit.daysCount) has been tracked successfully")
                                     .padding(10)
+                                Text(habit.updatedAt != nil ? "Updated: \(formattedDate(date: habit.updatedAt!))" : "")
+                                    .padding(20)
                             }
                          
                             HStack {
@@ -63,9 +65,7 @@ struct ContentView: View {
                     } label: {
                         VStack {
                             Text("\(habit.name)")
-                            Text("Created: \(habit.createdAt, format: Date.FormatStyle(date: .numeric, time: .shortened))")
-                                .padding(2)
-                            Text("Updated: \(habit.updatedAt ?? Date(), format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                            Text("Created: \(formattedDate(date: habit.createdAt))")
                                 .padding(2)
                             Text("Cuurent Day: \(habit.daysCount) / 21")
                                 .foregroundColor(Color.gray)

@@ -58,6 +58,7 @@ func undoTrack(_ habit: Habit) -> Habit {
 
 func formattedDate (date: Date) -> String {
     let formatter = DateFormatter()
-    formatter.dateStyle = .medium
+//    formatter.dateStyle = .medium
+    formatter.dateFormat = "MMM d, h:mm a"
     return formatter.string(from: date)
 }
