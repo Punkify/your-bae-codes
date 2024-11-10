@@ -107,6 +107,17 @@ struct Track21Tests {
         #expect(result![0].daysCount == 14)
     }
     
+    @Test("should not undo the increment if daysCount is 0.") func testHabitDaysCountIncrementFreezeUndo() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
+        context.insert(undoTrack(habit))
+     
+        
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        
+        #expect(result![0].daysCount == 0)
+    }
+    
     @Test("should not increment daysCount with 1 when habitCount is 21.") func testHabitDaysCountNoIncrement() async throws {
         let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 21)
         context.insert(trackHabit(habit))
@@ -130,5 +141,7 @@ struct Track21Tests {
         #expect(result![0].daysCount == 21)
         #expect(result![0].isComplete == true)
     }
+    
+    
 
 }
