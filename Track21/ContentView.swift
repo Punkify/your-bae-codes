@@ -20,11 +20,13 @@ struct ContentView: View {
                         VStack {
                             Text("Day \(habit.daysCount) has been tracked successfully")
                                 .padding(5)
-                            Button(action: {
-                               let habit = trackHabit(habit)
+                            
+                            HStack{ Button(action: {
+                                let habit = trackHabit(habit)
                                 modelContext.insert(habit)
                             }) {
                                 Label("Track", systemImage: "trash")
+                            }
                             }
                         }
                         

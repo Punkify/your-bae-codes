@@ -42,3 +42,14 @@ func trackHabit(_ habit: Habit) -> Habit {
     
     return habit
 }
+
+func undoTrack(_ habit: Habit) -> Habit {
+    habit.updatedAt = Date()
+  
+    habit.daysCount -= 1
+    
+    
+    habit.isComplete = (habit.daysCount == 21)
+    
+    return habit
+}
