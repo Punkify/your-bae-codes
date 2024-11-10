@@ -76,7 +76,7 @@ struct Track21Tests {
     
     @Test("should add daysCount to habits when habit  is tracked.") func testHabitDaysCount() async throws {
         let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
-        context.insert(trackHabit(habit: habit))
+        context.insert(trackHabit(habit))
      
         
         let fetchDescriptor = FetchDescriptor<Habit>()
@@ -87,7 +87,7 @@ struct Track21Tests {
     
     @Test("should increment daysCount with 1 when habit is tracked.") func testHabitDaysCountIncrement() async throws {
         let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 15)
-        context.insert(trackHabit(habit: habit))
+        context.insert(trackHabit(habit))
      
         
         let fetchDescriptor = FetchDescriptor<Habit>()
@@ -96,9 +96,20 @@ struct Track21Tests {
         #expect(result![0].daysCount == 16)
     }
     
+    @Test("should not increment daysCount with 1 when habitCount is 21.") func testHabitDaysCountNoIncrement() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 21)
+        context.insert(trackHabit(habit))
+     
+        
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        
+        #expect(result![0].daysCount == 21)
+    }
+    
     @Test("should change the isComplete value to true when habit is tracked for 21 days.") func testIsComplete() async throws {
         let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 20)
-        context.insert(trackHabit(habit: habit))
+        context.insert(trackHabit(habit))
    
         let fetchDescriptor = FetchDescriptor<Habit>()
         let result = try? context.fetch(fetchDescriptor)

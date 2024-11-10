@@ -31,12 +31,14 @@ class Habit {
     }
 }
 
-func trackHabit(habit: Habit) -> Habit{
+func trackHabit(_ habit: Habit) -> Habit {
     habit.updatedAt = Date()
-    habit.daysCount += 1
     
-    if habit.daysCount == 21 {
-        habit.isComplete = true
+    if habit.daysCount < 21 {
+        habit.daysCount += 1
     }
-   return habit
+    
+    habit.isComplete = (habit.daysCount == 21)
+    
+    return habit
 }
