@@ -17,6 +17,7 @@ class Habit {
     var daysCount:Int
     var targetDate: Int = 21
     var completedDays: Date?
+    var isComplete: Bool?
     
     init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int) {
         self.name = name
@@ -28,13 +29,14 @@ class Habit {
     enum CodingKeys: String, CodingKey {
         case name, habitDescription, createdAt, updatedAt, daysComplete
     }
-    
-    
-    
 }
 
 func trackHabit(habit: Habit) -> Habit{
     habit.updatedAt = Date()
     habit.daysCount += 1
+    
+    if habit.daysCount == 21 {
+        habit.isComplete = true
+    }
    return habit
 }
