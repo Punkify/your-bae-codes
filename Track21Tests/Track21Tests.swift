@@ -141,7 +141,4 @@ struct Track21Tests {
         #expect(result![0].daysCount == 21)
         #expect(result![0].isComplete == true)
     }
-    
-    
-
 }

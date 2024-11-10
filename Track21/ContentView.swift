@@ -18,26 +18,29 @@ struct ContentView: View {
                 ForEach(habits) { habit in
                     NavigationLink {
                         VStack {
+                         
                             if habit.daysCount == 0 {
                                 Text("No tracking for \(habit.name)")
                                     .padding(5)
                             }
                             else if habit.daysCount == 21 {
                                 Image(systemName: "checkmark.circle.fill")
-                                    .font(.system(size: 24)) // Adjust size as needed
-                                    .foregroundColor(.green) // Customize color if needed
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.green)
                                 Text("Congratulations! You have tracked 21 days in a row!")
                                     .padding(20)
                                 Image(systemName: "hands.clap")
-                                    .font(.system(size: 24)) // Adjust size as needed
-                                    .foregroundColor(.green) // Customize color if needed
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.green)
                             }
                             else {
+                                Image(systemName: "flame")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.blue) .padding(5)
                                 Text("Day \(habit.daysCount) has been tracked successfully")
                                     .padding(10)
                             }
                          
-                           
                             HStack {
                                 
                                 Button(action: {
@@ -58,8 +61,22 @@ struct ContentView: View {
                         }
                         
                     } label: {
-                        Text("\(habit.name)")
-                        Text("\(habit.createdAt, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                        VStack {
+                            Text("\(habit.name)")
+                            Text("Created: \(habit.createdAt, format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                .padding(2)
+                            Text("Updated: \(habit.updatedAt ?? Date(), format: Date.FormatStyle(date: .numeric, time: .shortened))")
+                                .padding(2)
+                            Text("Cuurent Day: \(habit.daysCount) / 21")
+                                .foregroundColor(Color.gray)
+                                .padding(2)
+                            
+                            Divider()
+                                .background(Color.blue)
+                        }
+                 
+                    
+                        
                     }
                 }
                 .onDelete(perform: deleteItems)
