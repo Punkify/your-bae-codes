@@ -67,7 +67,7 @@ struct Track21Tests {
         context.insert(secondHabit)
         
         context.delete(habit)
-        context.delete(habit)
+        context.delete(secondHabit)
         
         let fetchDescriptor = FetchDescriptor<Habit>()
         let result = try? context.fetch(fetchDescriptor)
