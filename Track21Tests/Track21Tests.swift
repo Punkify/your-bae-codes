@@ -29,33 +29,50 @@ struct Track21Tests {
         let createdDate = Date()
         let habit = Habit(name: "TestName", createdAt: createdDate)
         context.insert(habit)
+        
         #expect(habit.name == "TestName")
         #expect(habit.createdAt == createdDate)
     }
     
     @Test("should add multiple Habits") func testMultipleHabitInsertion() async throws {
         let createdDate = Date()
+        
         let habit = Habit(name: "TestName", createdAt: createdDate)
-        let secondHabit = Habit(name: "TestName", createdAt: createdDate)
-        let habits = [habit, secondHabit]
+        let secondHabit = Habit(name: "SecondName", createdAt: createdDate)
+        
         context.insert(habit)
         context.insert(secondHabit)
-        #expect(Habit().getValue(forKey: "name") == 2)
+
+        #expect(habit.name == "TestName")
+        #expect(secondHabit.name == "SecondName")
 
     }
     
-    @Test("should delete Habits") func testHabitDeletion() async throws {
-        let createdDate = Date()
-        let habit = Habit(name: "TestName", createdAt: createdDate)
-        let secondHabit = Habit(name: "TestName", createdAt: createdDate)
-        let habits = [habit, secondHabit]
+    @Test("should delete Habit") func testHabitDeletion() async throws {
+        let habit = Habit(name: "TestName", createdAt: Date())
+        
         context.insert(habit)
-        context.delete(secondHabit)
-        #expect(habits.count == 2)
-
+        context.delete(habit)
+        
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        #expect(result == [])
     }
     
-   
-
+    @Test("should delete MultipleHabits") func testMultipleHabitDeletion() async throws {
+        let habit = Habit(name: "TestName", createdAt: Date())
+        let secondHabit = Habit(name: "TestName", createdAt: Date())
+        
+        context.insert(habit)
+        context.insert(secondHabit)
+        
+        context.delete(habit)
+        context.delete(habit)
+        
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        #expect(result == [])
+    }
+    
 
 }
