@@ -27,18 +27,18 @@ struct Track21Tests {
     
     @Test("should insert into Habit Model when insert context is called.") func testHabitInsertion() async throws {
         let createdDate = Date()
-        let habit = Habit(name: "TestName", createdAt: createdDate)
+        let habit = Habit(name: "TestName", updatedAt: createdDate, daysCount: 0)
         context.insert(habit)
         
-        #expect(habit.name == "TestName")
-        #expect(habit.createdAt == createdDate)
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        #expect(result != [])
+        
     }
     
-    @Test("should add multiple Habits") func testMultipleHabitInsertion() async throws {
-        let createdDate = Date()
-        
-        let habit = Habit(name: "TestName", createdAt: createdDate)
-        let secondHabit = Habit(name: "SecondName", createdAt: createdDate)
+    @Test("should insert multiple Habits") func testMultipleHabitInsertion() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
+        let secondHabit = Habit(name: "SecondName", updatedAt: Date(), daysCount: 0)
         
         context.insert(habit)
         context.insert(secondHabit)
@@ -48,8 +48,8 @@ struct Track21Tests {
 
     }
     
-    @Test("should delete Habit") func testHabitDeletion() async throws {
-        let habit = Habit(name: "TestName", createdAt: Date())
+    @Test("should delete Habit when delete context is called.") func testHabitDeletion() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
         
         context.insert(habit)
         context.delete(habit)
@@ -59,9 +59,9 @@ struct Track21Tests {
         #expect(result == [])
     }
     
-    @Test("should delete MultipleHabits") func testMultipleHabitDeletion() async throws {
-        let habit = Habit(name: "TestName", createdAt: Date())
-        let secondHabit = Habit(name: "TestName", createdAt: Date())
+    @Test("should delete MultipleHabits when delete context is called.") func testMultipleHabitDeletion() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
+        let secondHabit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
         
         context.insert(habit)
         context.insert(secondHabit)
@@ -72,6 +72,28 @@ struct Track21Tests {
         let fetchDescriptor = FetchDescriptor<Habit>()
         let result = try? context.fetch(fetchDescriptor)
         #expect(result == [])
+    }
+    
+    @Test("should add daysCount to habits when habit  is tracked.") func testHabitDaysCount() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 0)
+        context.insert(trackHabit(habit: habit))
+     
+        
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        
+        #expect(result![0].daysCount == 1)
+    }
+    
+    @Test("should increment daysCount with 1 for habits when habit  is tracked.") func testHabitDaysCountIncrement() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 15)
+        context.insert(trackHabit(habit: habit))
+     
+        
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        
+        #expect(result![0].daysCount == 16)
     }
     
 

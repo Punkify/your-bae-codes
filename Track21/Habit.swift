@@ -12,13 +12,29 @@ import SwiftData
 class Habit {
     @Attribute(.unique) var name: String
     var habitDescription: String?
-    var createdAt: Date
+    var createdAt: Date = Date()
     var updatedAt: Date?
+    var daysCount:Int
+    var targetDate: Int = 21
+    var completedDays: Date?
     
-    init(name: String, habitDescription: String? = nil, createdAt: Date, updatedAt: Date? = nil) {
+    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int) {
         self.name = name
         self.habitDescription = habitDescription
-        self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.daysCount = daysCount
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case name, habitDescription, createdAt, updatedAt, daysComplete
+    }
+    
+    
+    
+}
+
+func trackHabit(habit: Habit) -> Habit{
+    habit.updatedAt = Date()
+    habit.daysCount += 1
+   return habit
 }
