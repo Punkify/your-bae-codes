@@ -10,16 +10,27 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var habits: [Habit]
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(habits) { habit in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        VStack {
+                            Text("Day \(habit.daysCount) has been tracked successfully")
+                                .padding(5)
+                            Button(action: {
+                               let habit = trackHabit(habit)
+                                modelContext.insert(habit)
+                            }) {
+                                Label("Track", systemImage: "trash")
+                            }
+                        }
+                        
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text("\(habit.name)")
+                        Text("\(habit.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -41,7 +52,7 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = Habit(name: "Walk", daysCount: 0)
             modelContext.insert(newItem)
         }
     }
@@ -49,7 +60,7 @@ struct ContentView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(habits[index])
             }
         }
     }
@@ -57,5 +68,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Habit.self, inMemory: true)
 }
