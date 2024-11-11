@@ -25,7 +25,7 @@ struct Track21App: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HabitView()
         }
         .modelContainer(sharedModelContainer)
     }

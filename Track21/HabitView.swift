@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct HabitView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var habits: [Habit]
 
@@ -75,8 +75,6 @@ struct ContentView: View {
                                 .background(Color.blue)
                         }
                  
-                    
-                        
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -113,6 +111,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HabitView()
         .modelContainer(for: Habit.self, inMemory: true)
 }
