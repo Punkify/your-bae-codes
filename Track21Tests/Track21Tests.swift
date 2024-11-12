@@ -4,14 +4,14 @@
 //
 //  Created by J31065 on 4/11/2024.
 //
-@testable import TrackConstants.TARGET_DAYS
+@testable import Track21
 import Testing
 import SwiftData
 import Foundation
 
 
 @MainActor
-struct TrackConstants.TARGET_DAYSTests {
+struct Track21Tests {
         
         private var context: ModelContext!
     
@@ -119,14 +119,14 @@ struct TrackConstants.TARGET_DAYSTests {
     }
     
     @Test("should not increment daysCount with 1 when habitCount is Constants.TARGET_DAYS.") func testHabitDaysCountNoIncrement() async throws {
-        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: Constants.TARGET_DAYS)
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: Constants().TARGET_DAYS)
         context.insert(trackHabit(habit))
      
         
         let fetchDescriptor = FetchDescriptor<Habit>()
         let result = try? context.fetch(fetchDescriptor)
         
-        #expect(result![0].daysCount == Constants.TARGET_DAYS)
+        #expect(result![0].daysCount == Constants().TARGET_DAYS)
     }
     
     @Test("should change the isComplete value to true when habit is tracked for Constants().TARGET_DAYS days.") func testIsComplete() async throws {
@@ -138,7 +138,7 @@ struct TrackConstants.TARGET_DAYSTests {
         
         print("habit details", habit.name, result![0].daysCount)
         
-        #expect(result![0].daysCount == Constants.TARGET_DAYS)
+        #expect(result![0].daysCount == Constants().TARGET_DAYS)
         #expect(result![0].isComplete == true)
     }
 }
