@@ -1,6 +1,6 @@
 //
 //  Habit.swift
-//  Track21
+//  TrackConstants.TARGET_DAYS
 //
 //  Created by J31065 on 9/11/2024.
 //
@@ -15,9 +15,9 @@ class Habit {
     var createdAt: Date = Date()
     var updatedAt: Date?
     var daysCount:Int
-    var targetDate: Int = 21
+    var targetDate: Int = Constants().TARGET_DAYS
     var completedDays: Date?
-    var isComplete: Bool?
+    var isComplete: Bool = false
     
     init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int) {
         self.name = name
@@ -34,11 +34,11 @@ class Habit {
 func trackHabit(_ habit: Habit) -> Habit {
     habit.updatedAt = Date()
     
-    if habit.daysCount < 21 {
+    if habit.daysCount < Constants().TARGET_DAYS {
         habit.daysCount += 1
     }
     
-    habit.isComplete = (habit.daysCount == 21)
+    habit.isComplete = (habit.daysCount == Constants().TARGET_DAYS)
     
     return habit
 }
@@ -51,7 +51,7 @@ func undoTrack(_ habit: Habit) -> Habit {
     }
  
 
-    habit.isComplete = (habit.daysCount == 21)
+    habit.isComplete = (habit.daysCount == Constants().TARGET_DAYS)
     
     return habit
 }

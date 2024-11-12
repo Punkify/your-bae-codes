@@ -1,17 +1,17 @@
 //
-//  Track21Tests.swift
-//  Track21Tests
+//  TrackConstants.TARGET_DAYSTests.swift
+//  TrackConstants.TARGET_DAYSTests
 //
 //  Created by J31065 on 4/11/2024.
 //
-@testable import Track21
+@testable import TrackConstants.TARGET_DAYS
 import Testing
 import SwiftData
 import Foundation
 
 
 @MainActor
-struct Track21Tests {
+struct TrackConstants.TARGET_DAYSTests {
         
         private var context: ModelContext!
     
@@ -118,18 +118,18 @@ struct Track21Tests {
         #expect(result![0].daysCount == 0)
     }
     
-    @Test("should not increment daysCount with 1 when habitCount is 21.") func testHabitDaysCountNoIncrement() async throws {
-        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 21)
+    @Test("should not increment daysCount with 1 when habitCount is Constants.TARGET_DAYS.") func testHabitDaysCountNoIncrement() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: Constants.TARGET_DAYS)
         context.insert(trackHabit(habit))
      
         
         let fetchDescriptor = FetchDescriptor<Habit>()
         let result = try? context.fetch(fetchDescriptor)
         
-        #expect(result![0].daysCount == 21)
+        #expect(result![0].daysCount == Constants.TARGET_DAYS)
     }
     
-    @Test("should change the isComplete value to true when habit is tracked for 21 days.") func testIsComplete() async throws {
+    @Test("should change the isComplete value to true when habit is tracked for Constants().TARGET_DAYS days.") func testIsComplete() async throws {
         let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 20)
         context.insert(trackHabit(habit))
    
@@ -138,7 +138,7 @@ struct Track21Tests {
         
         print("habit details", habit.name, result![0].daysCount)
         
-        #expect(result![0].daysCount == 21)
+        #expect(result![0].daysCount == Constants.TARGET_DAYS)
         #expect(result![0].isComplete == true)
     }
 }

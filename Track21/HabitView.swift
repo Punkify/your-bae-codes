@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Track21
+//  TrackConstants.TARGET_DAYS
 //
 //  Created by J31065 on 4/11/2024.
 //
@@ -23,11 +23,11 @@ struct HabitView: View {
                                 Text("No tracking for \(habit.name)")
                                     .padding(5)
                             }
-                            else if habit.daysCount == 21 {
+                            else if habit.daysCount == Constants().TARGET_DAYS {
                                 Image(systemName: "checkmark.circle.fill")
                                     .font(.system(size: 24))
                                     .foregroundColor(.green)
-                                Text("Congratulations! You have tracked 21 days in a row!")
+                                Text("Congratulations! You have tracked \(Constants().TARGET_DAYS) days in a row!")
                                     .padding(20)
                                 Image(systemName: "hands.clap")
                                     .font(.system(size: 24))
@@ -63,17 +63,24 @@ struct HabitView: View {
                         }
                         
                     } label: {
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text("\(habit.name)")
                             Text("Created: \(formattedDate(date: habit.createdAt))")
-                                .padding(2)
-                            Text("Cuurent Day: \(habit.daysCount) / 21")
-                                .foregroundColor(Color.gray)
-                                .padding(2)
+                                .padding(1)
                             
+                            HStack{
+                                Text("Current Day: \(habit.daysCount) / \(Constants().TARGET_DAYS)")
+                                    .foregroundColor(Color.gray)
+                                    .padding(1)
+                                Spacer()
+                                Image(systemName: habit.isComplete ? "checkmark.circle.fill" : "arrow.2.circlepath")
+                            }
+                          
                             Divider()
-                                .background(Color.blue)
+                                .foregroundStyle(Color.gray)
+
                         }
+                      
                  
                     }
                 }
