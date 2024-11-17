@@ -141,4 +141,14 @@ struct Track21Tests {
         #expect(result![0].daysCount == Constants().TARGET_DAYS)
         #expect(result![0].isComplete == true)
     }
+    
+    @Test("should save the habit note.") func testhabitNote() async throws {
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 20, notes: "Test Note")
+        context.insert(trackHabit(habit))
+   
+        let fetchDescriptor = FetchDescriptor<Habit>()
+        let result = try? context.fetch(fetchDescriptor)
+        
+        #expect("Test Note" == result![0].notes)
+    }
 }

@@ -18,12 +18,14 @@ class Habit {
     var targetDate: Int = Constants().TARGET_DAYS
     var completedDays: Date?
     var isComplete: Bool = false
+    var notes: String?
     
-    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int = 0) {
+    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int = 0, notes: String? = nil) {
         self.name = name
         self.habitDescription = habitDescription
         self.updatedAt = updatedAt
         self.daysCount = daysCount
+        self.notes = notes
     }
     
     enum CodingKeys: String, CodingKey {
