@@ -8,12 +8,14 @@ import SwiftUI
 
 struct AddHabitView: View {
     
-    @State var habitName: String = ""
+    @State var habit: String = ""
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
             HStack {
-                TextField("Add a habit", text: $habitName)
+                TextField("Add a habit", text: $habit)
                     .padding(20)
                     .cornerRadius(8)
                     .font(.system(size: 16))
@@ -26,7 +28,9 @@ struct AddHabitView: View {
         }
         .padding()
         Button(action: {
-            // Save habit action
+           let habitData = Habit(name: habit)
+            modelContext.insert(habitData)
+            dismiss()
             print("Habit saved!")
         }) {
             Text("Save Habit")

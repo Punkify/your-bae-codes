@@ -10,6 +10,7 @@ import SwiftData
 
 struct HabitView: View {
     @Environment(\.modelContext) private var modelContext
+    @State private var showAddHabitView = false
     @Query private var habits: [Habit]
 
     var body: some View {
@@ -73,7 +74,7 @@ struct HabitView: View {
                                     .foregroundColor(Color.gray)
                                     .padding(1)
                                 Spacer()
-                                Image(systemName: habit.isComplete ? "checkmark.circle.fill" : "arrow.2.circlepath")
+                                
                             }
                           
                             Divider()
@@ -91,14 +92,21 @@ struct HabitView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: {
+                        showAddHabitView = true
+                    }) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
-        } detail: {
+        }
+    
+        detail: {
             Text("Select an item")
         }
+        .fullScreenCover(isPresented: $showAddHabitView) { // Full-screen modal navigation
+                    AddHabitView()
+                }
     }
 
     
@@ -116,6 +124,8 @@ struct HabitView: View {
             }
         }
     }
+    
+  
 }
 
 #Preview {

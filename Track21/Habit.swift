@@ -19,7 +19,7 @@ class Habit {
     var completedDays: Date?
     var isComplete: Bool = false
     
-    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int) {
+    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int = 0) {
         self.name = name
         self.habitDescription = habitDescription
         self.updatedAt = updatedAt
