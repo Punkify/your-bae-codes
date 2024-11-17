@@ -77,8 +77,6 @@ struct HabitView: View {
                                 
                             }
                           
-                            Divider()
-                                .foregroundStyle(Color.gray)
 
                         }
                       

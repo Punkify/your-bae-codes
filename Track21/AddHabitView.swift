@@ -30,10 +30,12 @@ struct AddHabitView: View {
             
             .padding()
             Button(action: {
-                let habitData = Habit(name: habit)
-                modelContext.insert(habitData)
-                dismiss()
-                print("Habit saved!")
+                if !habit.isEmpty {
+                    let habitData = Habit(name: habit)
+                    modelContext.insert(habitData)
+                    dismiss()
+                    print("Habit saved!")
+                }
             }) {
                 Text("Save Habit")
                     .font(.headline)
