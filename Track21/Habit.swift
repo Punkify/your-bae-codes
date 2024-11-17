@@ -14,7 +14,7 @@ class Habit {
     var habitDescription: String?
     var createdAt: Date = Date()
     var updatedAt: Date?
-    var daysCount:Int
+    var daysCount:Int = 0
     var targetDate: Int = Constants().TARGET_DAYS
     var completedDays: Date?
     var isComplete: Bool = false

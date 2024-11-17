@@ -101,6 +101,7 @@ struct HabitView: View {
         }
     }
 
+    
     private func addItem() {
         withAnimation {
             let newItem = Habit(name: "Walk", daysCount: 0)
@@ -121,3 +122,4 @@ struct HabitView: View {
     HabitView()
         .modelContainer(for: Habit.self, inMemory: true)
 }
+
