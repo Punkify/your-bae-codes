@@ -57,8 +57,11 @@ struct HabitView: View {
                                 
                                 Button(action: {
                                 let habit = trackHabit(habit)
-                                addNotes(habit: habit)
+                                if !notes.isEmpty {
+                                        addNotes(habit: habit)
+                                    }
                                 modelContext.insert(habit)
+                                        
                                 notes = ""
                             }) {
                                 Label("Track", systemImage: "trash")
@@ -74,7 +77,13 @@ struct HabitView: View {
                             }
                             
                             VStack {
-                                Text("Your notes for this habit: \(habit.notes ?? "no notes")")
+                                Text(!habit.notes.isEmpty ? "Notes : " : "")
+                                ForEach(habit.notes, id: \.self) { note in
+                                    Text("\(note)")
+                                        .padding(1)
+                                }
+                                
+                              
                             }
                         }
                         
@@ -144,7 +153,7 @@ struct HabitView: View {
             let result = try? modelContext.fetch(fetchDescriptor)
             
             result?.filter { habit.id == $0.id }.forEach {
-                $0.notes = notes
+                $0.notes.append(notes)
                 modelContext.insert($0)
             }
         }

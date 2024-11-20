@@ -18,9 +18,9 @@ class Habit {
     var targetDate: Int = Constants().TARGET_DAYS
     var completedDays: Date?
     var isComplete: Bool = false
-    var notes: String?
+    var notes: [String]
     
-    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int = 0, notes: String? = nil) {
+    init(name: String, habitDescription: String? = nil, updatedAt: Date? = nil, daysCount: Int = 0, notes: [String] = []) {
         self.name = name
         self.habitDescription = habitDescription
         self.updatedAt = updatedAt

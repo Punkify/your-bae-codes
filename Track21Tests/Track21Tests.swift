@@ -143,12 +143,12 @@ struct Track21Tests {
     }
     
     @Test("should save the habit note.") func testhabitNote() async throws {
-        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 20, notes: "Test Note")
+        let habit = Habit(name: "TestName", updatedAt: Date(), daysCount: 20, notes: ["Test Note"])
         context.insert(trackHabit(habit))
    
         let fetchDescriptor = FetchDescriptor<Habit>()
         let result = try? context.fetch(fetchDescriptor)
         
-        #expect("Test Note" == result![0].notes)
+        #expect("Test Note" == result![0].notes[0])
     }
 }
