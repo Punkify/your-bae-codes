@@ -12,6 +12,7 @@ struct HabitView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var showAddHabitView = false
     @Query private var habits: [Habit]
+    @State private var notes: String  = ""
 
     var body: some View {
         NavigationSplitView {
@@ -44,11 +45,21 @@ struct HabitView: View {
                                     .padding(20)
                             }
                          
+                            TextField("add a note", text: $notes)
+                                .multilineTextAlignment(.center)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                           .onSubmit {
+                                               addNotes(habit: habit)
+                                           }
+                                           .padding()
+                         
                             HStack {
                                 
                                 Button(action: {
                                 let habit = trackHabit(habit)
+                                addNotes(habit: habit)
                                 modelContext.insert(habit)
+                                notes = ""
                             }) {
                                 Label("Track", systemImage: "trash")
                             }
@@ -60,6 +71,10 @@ struct HabitView: View {
                                 Label("Undo", systemImage: "arrow.uturn.backward")
                             }
                                 
+                            }
+                            
+                            VStack {
+                                Text("Your notes for this habit: \(habit.notes ?? "no notes")")
                             }
                         }
                         
@@ -122,6 +137,19 @@ struct HabitView: View {
             }
         }
     }
+    
+    private func addNotes(habit: Habit){
+        withAnimation {
+            let fetchDescriptor = FetchDescriptor<Habit>()
+            let result = try? modelContext.fetch(fetchDescriptor)
+            
+            result?.filter { habit.id == $0.id }.forEach {
+                $0.notes = notes
+                modelContext.insert($0)
+            }
+        }
+    }
+    
     
   
 }
