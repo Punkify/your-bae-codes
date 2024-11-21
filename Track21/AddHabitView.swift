@@ -8,33 +8,36 @@ import SwiftUI
 
 struct AddHabitView: View {
     
-    @State var habit: String = ""
+    @State private var habit: String = ""
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-      
-    
         VStack {
-            HStack {
-                TextField("Add a habit", text: $habit)
-                    .padding(20)
-                    .cornerRadius(8)
-                    .font(.system(size: 16))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
-            }
-            .edgesIgnoringSafeArea(.all)
+            // Title
+            Text("Add a New Habit")
+                .font(.title)
+                .fontWeight(.bold)
+                .padding(.top, 40)
+                .foregroundColor(.blue)
             
-            .padding()
+            // Text Field
+            TextField("Enter habit name", text: $habit)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.white)
+                        .shadow(color: .black.opacity(0.1), radius: 4, x: 2, y: 2)
+                )
+                .padding(.horizontal)
+                .font(.system(size: 16))
+            
+            // Save Button
             Button(action: {
                 if !habit.isEmpty {
                     let habitData = Habit(name: habit)
                     modelContext.insert(habitData)
                     dismiss()
-                    print("Habit saved!")
                 }
             }) {
                 Text("Save Habit")
@@ -43,46 +46,50 @@ struct AddHabitView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(
-                        LinearGradient(gradient: Gradient(colors: [Color.white, Color.blue]),
+                        LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]),
                                        startPoint: .leading,
                                        endPoint: .trailing)
                     )
-                    .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+                    .cornerRadius(12)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
             }
             .padding(.horizontal)
-            .padding(.bottom, 200)
+            .padding(.top, 20)
             
+            // Cancel Button
             Button(action: {
-                     
                 dismiss()
-                 })
-            {
-                     Image(systemName: "xmark.circle.fill")
-                         .resizable()
-                         .aspectRatio(contentMode: .fit)
-                         .frame(width: 50, height: 50)
-                         .foregroundStyle(
-                             LinearGradient(
-                                 colors: [.blue, .white],
-                                 startPoint: .top,
-                                 endPoint: .bottom
-                             )
-                         )
-                         .padding()
-                         .background(Circle().fill(Color.gray.opacity(0.2)))
-                         .clipShape(Circle())
-                 }
+            }) {
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 50)
+                    .foregroundStyle(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.blue, .gray]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .padding()
+            }
+            .padding(.top, 40)
+            
+            Spacer()
         }
-         
-        
+        .padding()
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("BackgroundStart"), Color("BackgroundEnd")]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .edgesIgnoringSafeArea(.all)
+        )
     }
-    
-    
-        
-    
 }
 
 #Preview {
     AddHabitView()
 }
+

@@ -12,136 +12,45 @@ struct HabitView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var showAddHabitView = false
     @Query private var habits: [Habit]
-    @State private var notes: String  = ""
+    @State private var notes: String = ""
 
     var body: some View {
-            
-            NavigationSplitView {
-                List {
-                    
-                    ForEach(habits) { habit in
-                        NavigationLink {
-                            VStack {
-                                
-                                if habit.daysCount == 0 {
-                                    
-                                    DefaultView(habit: habit)
-                                    
-                                }
-                                else if habit.daysCount == Constants().TARGET_DAYS {
-                                    
-                                    TrackView(habit: habit)
-                                    
-                                }
-                                
-                                else {
-                                    
-                                    SuccessView(habit: habit)
-                                }
-                                
-                                TextField("add a note", text: $notes)
-                                    .multilineTextAlignment(.center)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .onSubmit {
-                                        addNotes(habit: habit)
-                                    }
-                                    .padding()
-                                
-                                HStack {
-                                    
-                                    Button(action: {
-                                        let habit = trackHabit(habit)
-                                        if !notes.isEmpty {
-                                            addNotes(habit: habit)
-                                        }
-                                        modelContext.insert(habit)
-                                        
-                                        notes = ""
-                                    }) {
-                                        Label("Track", systemImage: "trash")
-                                    }
-                                    .padding(10)
-                                    Button(action: {
-                                        let habit = undoTrack(habit)
-                                        modelContext.insert(habit)
-                                    }) {
-                                        Label("Undo", systemImage: "arrow.uturn.backward")
-                                    }
-                                    
-                                }
-                                
-                                VStack {
-                                    Text(!habit.notes.isEmpty ? "Notes : " : "")
-                                    ForEach(habit.notes, id: \.self) { note in
-                                        Text("\(note)")
-                                            .padding(1)
-                                    }
-                                    
-                                    
-                                }
-                                
-                                DayGridView()
-                            }
-                            
-                        } label: {
-                            VStack(alignment: .leading) {
-                                Text("\(habit.name)")
-                                Text("Created: \(formattedDate(date: habit.createdAt))")
-                                    .padding(1)
-                                
-                                HStack{
-                                    Text("Current Day: \(habit.daysCount) / \(Constants().TARGET_DAYS)")
-                                        .foregroundColor(Color.gray)
-                                        .padding(1)
-                                    Spacer()
-                                    
-                                }
-                                
-                                
-                            }
-                            
-                            
-                        }
+        NavigationSplitView {
+            List {
+                ForEach(habits) { habit in
+                    NavigationLink {
+                        HabitDetailView(habit: habit, notes: $notes, modelContext: modelContext)
+                    } label: {
+                        HabitRowView(habit: habit)
                     }
-                    .onDelete(perform: deleteItems)
-                    
+                    .listRowBackground(Color("ListRowBackground"))
                 }
-              
-            
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem {
-                        Button(action: {
-                            showAddHabitView = true
-                        }) {
-                            Label("Add Item", systemImage: "plus")
-                        }
-                    }
-                }
+                .onDelete(perform: deleteItems)
             }
-          
-            
-            detail: {
-                Text("Select an item")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
+                ToolbarItem {
+                    Button(action: { showAddHabitView = true }) {
+                        Label("Add Item", systemImage: "plus")
+                            .foregroundColor(.blue)
+                    }
+                }
             }
             .background(
                 Image("wallpaper")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
+                    .ignoresSafeArea()
             )
-            .fullScreenCover(isPresented: $showAddHabitView) { //
-                AddHabitView()
-            }
-           
-    }
-
-    
-    private func addItem() {
-        withAnimation {
-            let newItem = Habit(name: "Walk", daysCount: 0)
-            modelContext.insert(newItem)
+        } detail: {
+            Text("Select a habit to view details.")
+                .foregroundColor(.gray)
+                .font(.headline)
+        }
+        .fullScreenCover(isPresented: $showAddHabitView) {
+            AddHabitView()
         }
     }
 
@@ -152,63 +61,169 @@ struct HabitView: View {
             }
         }
     }
-    
-    private func addNotes(habit: Habit){
-        withAnimation {
-            let fetchDescriptor = FetchDescriptor<Habit>()
-            let result = try? modelContext.fetch(fetchDescriptor)
+}
+
+struct HabitDetailView: View {
+    var habit: Habit
+    @Binding var notes: String
+    var modelContext: ModelContext
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Group {
+                if habit.daysCount == 0 {
+                    DefaultView(habit: habit)
+                } else if habit.daysCount == Constants().TARGET_DAYS {
+                    TrackView(habit: habit)
+                } else {
+                    SuccessView(habit: habit)
+                }
+            }
+            .padding()
+
+            TextField("Add a note", text: $notes)
+                .padding()
+                .background(Color("TextFieldBackground"))
+                .cornerRadius(8)
+                .padding(.horizontal)
+
+            HStack(spacing: 20) {
+                Button(action: {
+                    let habit = trackHabit(habit)
+                    if !notes.isEmpty {
+                        addNotes(habit: habit)
+                    }
+                    modelContext.insert(habit)
+                    notes = ""
+                }) {
+                    Label("Track", systemImage: "checkmark.circle.fill")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(8)
+                }
+
+                Button(action: {
+                    let habit = undoTrack(habit)
+                    modelContext.insert(habit)
+                }) {
+                    Label("Undo", systemImage: "arrow.uturn.backward")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(8)
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 10) {
+                if !habit.notes.isEmpty {
+                    Text("Notes:")
+                        .font(.headline)
+                        .padding(.bottom, 5)
+                }
+
+                ForEach(habit.notes, id: \.self) { note in
+                    Text(note)
+                        .padding()
+                        .background(Color("NoteBackground"))
+                        .cornerRadius(8)
+                }
+            }
+            .padding(.horizontal)
+                       VStack(alignment: .leading) {
+                           Text("Progress Tracker")
+                               .font(.title2)
+                               .fontWeight(.semibold)
+                               .padding(.horizontal)
+                           DayGridView(habit: habit)
+                               .padding(.horizontal)
+                       }
             
-            result?.filter { habit.id == $0.id }.forEach {
-                $0.notes.append(notes)
-                modelContext.insert($0)
+            Spacer()
+        }
+        .padding()
+        .background(Color("DetailBackground"))
+        .cornerRadius(10)
+    }
+
+    private func addNotes(habit: Habit){
+            withAnimation {
+                let fetchDescriptor = FetchDescriptor<Habit>()
+                let result = try? modelContext.fetch(fetchDescriptor)
+                
+                result?.filter { habit.id == $0.id }.forEach {
+                    $0.notes.append(notes)
+                    modelContext.insert($0)
+                }
             }
         }
-    }
-    
-    
-  
 }
 
-struct SuccessView : View {
+struct HabitRowView: View {
     var habit: Habit
+
     var body: some View {
-        Image(systemName: "flame")
-            .font(.system(size: 24))
-            .foregroundColor(.blue) .padding(5)
-        Text("Day \(habit.daysCount) has been tracked successfully")
-            .padding(10)
-        Text(habit.updatedAt != nil ? "Updated: \(formattedDate(date: habit.updatedAt!))" : "")
-            .padding(20)
-        
+        VStack(alignment: .leading, spacing: 5) {
+            Text(habit.name)
+                .font(.headline)
+            Text("Created: \(formattedDate(date: habit.createdAt))")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+
+            HStack {
+                Text("Current Day: \(habit.daysCount) / \(Constants().TARGET_DAYS)")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                Spacer()
+            }
+        }
+        .padding()
+        .background(Color("RowBackground"))
+        .cornerRadius(8)
+        .shadow(radius: 1)
     }
 }
 
-struct TrackView : View {
-    var habit: Habit
-    var body: some View {
-        Image(systemName: "checkmark.circle.fill")
-            .font(.system(size: 24))
-            .foregroundColor(.green)
-        Text("Congratulations! You have tracked \(Constants().TARGET_DAYS) days in a row!")
-            .padding(20)
-        Image(systemName: "hands.clap")
-            .font(.system(size: 24))
-            .foregroundColor(.green)
-        
-    }
-}
-
-struct DefaultView : View {
+struct DefaultView: View {
     var habit: Habit
     var body: some View {
         Text("No tracking for \(habit.name)")
-            .padding(5)
-        
+            .font(.headline)
+            .foregroundColor(.gray)
+            .padding()
     }
 }
-   
+
+struct SuccessView: View {
+    var habit: Habit
+    var body: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "flame.fill")
+                .font(.system(size: 36))
+                .foregroundColor(.orange)
+            Text("Day \(habit.daysCount) has been tracked successfully.")
+                .multilineTextAlignment(.center)
+        }
+    }
+}
+
+struct TrackView: View {
+    var habit: Habit
+    var body: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 36))
+                .foregroundColor(.green)
+            Text("Congratulations! You have tracked \(Constants().TARGET_DAYS) days in a row!")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.primary)
+        }
+    }
+}
+
 #Preview {
     HabitView()
         .modelContainer(for: Habit.self, inMemory: true)
 }
-
