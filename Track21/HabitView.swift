@@ -33,6 +33,7 @@ struct HabitView: View {
                                     TrackView(habit: habit)
                                     
                                 }
+                                
                                 else {
                                     
                                     SuccessView(habit: habit)
@@ -78,6 +79,8 @@ struct HabitView: View {
                                     
                                     
                                 }
+                                
+                                DayGridView()
                             }
                             
                         } label: {
@@ -101,6 +104,7 @@ struct HabitView: View {
                         }
                     }
                     .onDelete(perform: deleteItems)
+                    
                 }
               
             
